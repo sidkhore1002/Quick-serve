@@ -18,15 +18,60 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List Electrician = [
-    {"name": "Sagar Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Raj Rathod", "phone": "98648758", "charges": "200"},
-    {"name": "Karan Patel", "phone": "98648758", "charges": "500"},
-    {"name": "Sham Joshi", "phone": "986543323", "charges": "200"},
-    {"name": "Rakesh Patil", "phone": "98648758", "charges": "300"},
-    {"name": "Shubham Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Pratik Thete", "phone": "98648758", "charges": "400"},
-    {"name": "Kunal Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Ritik Jadhav", "phone": "98648758", "charges": "200"},
+    {
+      "name": "Sagar Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "address": "Pune"
+    },
+    {
+      "name": "Raj Rathod",
+      "phone": "98648758",
+      "charges": "200",
+      "address": "Mumbai"
+    },
+    {
+      "name": "Karan Patel",
+      "phone": "98648758",
+      "charges": "500",
+      "address": "Nagpur"
+    },
+    {
+      "name": "Sham Joshi",
+      "phone": "986543323",
+      "charges": "200",
+      "address": "Pune",
+    },
+    {
+      "name": "Rakesh Patil",
+      "phone": "98648758",
+      "charges": "300",
+      "address": "Mumbai"
+    },
+    {
+      "name": "Shubham Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "address": "Pune"
+    },
+    {
+      "name": "Pratik Thete",
+      "phone": "98648758",
+      "charges": "400",
+      "address": "Mumbai"
+    },
+    {
+      "name": "Kunal Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "address": "Pune"
+    },
+    {
+      "name": "Ritik Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "address": "Mumbai"
+    },
   ];
 
   @override
@@ -34,13 +79,15 @@ class _HomePageState extends State<HomePage> {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(top: mediaQuery.height * 0.08),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              padding: EdgeInsets.only(
+                  left: mediaQuery.width * 0.10,
+                  right: mediaQuery.width * 0.10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
@@ -68,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                     }),
               ),
             ),
-            SizedBox(height: 10),
             Expanded(
                 child: Container(
                     child:

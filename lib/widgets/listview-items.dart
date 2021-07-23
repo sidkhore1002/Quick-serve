@@ -76,6 +76,32 @@ class ListViewItems extends StatelessWidget {
                           Text(
                             '\u{20B9} ${Electrician[index]['charges']}',
                             style: TextStyle(color: Colors.grey),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/location.png',
+                                    height: MediaQuery.of(context).size.width *
+                                        0.08,
+                                  ),
+                                ),
+                                onTap: () {
+                                  print("hello");
+                                  Navigator.pushReplacementNamed(
+                                      context, '/viewlocation');
+                                },
+                              ),
+                              Text(
+                                Electrician[index]["address"],
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: mediaQuery.width * 0.040,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           )
                         ],
                       )
