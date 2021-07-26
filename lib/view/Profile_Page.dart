@@ -13,7 +13,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("Profile"),
+        child: Text("Profile Page"),
       ),
     );
   }
