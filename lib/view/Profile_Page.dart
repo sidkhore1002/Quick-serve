@@ -75,6 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Container(
                   child: ListView.builder(
                       shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
                       itemCount: myservices.length,
                       controller: scrollerController,
                       itemBuilder: (BuildContext context, int index) {

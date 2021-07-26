@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
+      padding: EdgeInsets.only(top: mediaQuery.height * 0.0),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
