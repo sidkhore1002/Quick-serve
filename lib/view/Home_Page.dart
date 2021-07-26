@@ -34,41 +34,43 @@ class _HomePageState extends State<HomePage> {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Container(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    offset: Offset(0.0, 2.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
-              ),
-              width: mediaQuery.width * 0.55,
-              // height: mediaQuery.width * 0.12,
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-                    value: dropdownvalue,
-                    items: items.map((String itemslist) {
-                      return DropdownMenuItem(
-                          value: itemslist, child: Text(itemslist));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        //    dropdownvalue = value;
-                      });
-                    }),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      offset: Offset(0.0, 2.0), //(x,y)
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                width: mediaQuery.width * 0.55,
+                // height: mediaQuery.width * 0.12,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                      value: dropdownvalue,
+                      items: items.map((String itemslist) {
+                        return DropdownMenuItem(
+                            value: itemslist, child: Text(itemslist));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          //    dropdownvalue = value;
+                        });
+                      }),
+                ),
               ),
             ),
-            SizedBox(height: 10),
             Expanded(
                 child: Container(
                     child:

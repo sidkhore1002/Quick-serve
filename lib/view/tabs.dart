@@ -27,16 +27,15 @@ class _TabScreenState extends State<TabScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter Demo"),
-      ),
       body: TabBarView(
         children: [HomePage(), ProfilePage(), SettingsPage()],
         controller: controller,
       ),
       bottomNavigationBar: Material(
-        color: Colors.pink[800],
+        color: Colors.white,
         child: TabBar(
+          labelColor: Colors.black,
+          labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           tabs: <Widget>[
             Tab(text: "Home"),
             Tab(text: "Profile"),
