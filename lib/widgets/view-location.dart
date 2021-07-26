@@ -15,25 +15,40 @@ class _ViewLocationState extends State<ViewLocation> {
 
   var latitudedata;
   var longitudedata;
+  late Position _currentPosition;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentLocation();
+    _getCurrentLocation();
   }
 
-  getCurrentLocation() async {
-    //final geoposition= await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    final geoPosition = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    setState(() {
-      latitudedata = geoPosition.latitude;
-      longitudedata = geoPosition.longitude;
+  _getCurrentLocation() {
+    Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        // latitudedata = _currentPosition.latitude;
+        // longitudedata = _currentPosition.longitude;
+      });
+    }).catchError((e) {
+      print(e);
     });
   }
+
+  // getCurrentLocation() async {
+  //   //final geoposition= await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+  //   final geoPosition = await Geolocator()
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+  //   setState(() {
+  //     latitudedata = geoPosition.latitude;
+  //     longitudedata = geoPosition.longitude;
+  //   });
+  // }
 
   // getPermission() async {
   //   final GeolocationResult result =
@@ -73,7 +88,9 @@ class _ViewLocationState extends State<ViewLocation> {
       body: FlutterMap(
         mapController: controller,
         options: new MapOptions(
-            center: LatLng(latitudedata, longitudedata), minZoom: 5.0),
+            center:
+                LatLng(_currentPosition.latitude, _currentPosition.longitude),
+            minZoom: 5.0),
         layers: [
           new TileLayerOptions(
               urlTemplate: "https//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -82,8 +99,4 @@ class _ViewLocationState extends State<ViewLocation> {
       ),
     );
   }
-}
-
-class Geolocator {
-  getCurrentPosition({desiredAccuracy}) {}
 }
