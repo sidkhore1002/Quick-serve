@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: mediaQuery.height * 0.0),
+      padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                padding: EdgeInsets.only(left: mediaQuery.width * 0.1),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.white,

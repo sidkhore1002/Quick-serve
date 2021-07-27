@@ -33,9 +33,18 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: mediaQuery.height * 0.12),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/profile.jpg'),
-                  radius: mediaQuery.width * 0.14,
+                child: Container(
+                  width: mediaQuery.width * 0.27,
+                  height: mediaQuery.width * 0.28,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/profile.jpg'),
+                        fit: BoxFit.cover),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        width: mediaQuery.width * 0.01,
+                        color: Colors.grey.withOpacity(0.5)),
+                  ),
                 ),
               ),
               Padding(
@@ -68,23 +77,34 @@ class _ProfilePageState extends State<ProfilePage> {
         DraggableScrollableSheet(
             initialChildSize: 0.3,
             minChildSize: 0.3,
-            maxChildSize: 0.68,
+            maxChildSize: 0.57,
             builder: (BuildContext context, scrollerController) {
               return Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Container(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: myservices.length,
-                      controller: scrollerController,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          child: ProfileListview(myservices, index),
-                        );
-                      }),
+                  child: Stack(children: [
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Image.asset(
+                        'assets/images/ic_scroll_up_bottom_sheet.png',
+                        color: Colors.black,
+                        height: mediaQuery.height * 0.035,
+                        width: mediaQuery.width * 0.08,
+                      ),
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: myservices.length,
+                        controller: scrollerController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            child: ProfileListview(myservices, index),
+                          );
+                        })
+                  ]),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15)),
                 ),
               );
