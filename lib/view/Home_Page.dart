@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_project/widgets/listview-items.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +9,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String dropdownvalue = 'Electrician';
+
+  late Position _currentPosition;
+  var latitude;
+  var longitude;
+
+  Future<void> _getCurrentLocation() async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        latitude = _currentPosition.latitude;
+        longitude = _currentPosition.longitude;
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
   List<String> items = [
     'Electrician',
@@ -28,6 +43,13 @@ class _HomePageState extends State<HomePage> {
     {"name": "Kunal Jadhav", "phone": "98648758", "charges": "200"},
     {"name": "Ritik Jadhav", "phone": "98648758", "charges": "200"},
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                     itemCount: Electrician.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        child: ListViewItems(index, Electrician),
+                        child: ListViewItems(
+                            index, Electrician, latitude, longitude),
                       );
                     }),
               ),

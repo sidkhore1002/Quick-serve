@@ -4,6 +4,7 @@ import 'package:flutter_demo_project/view/Profile_Page.dart';
 import 'package:flutter_demo_project/view/Settings_Page.dart';
 
 import 'package:flutter_demo_project/view/tabs.dart';
+import 'package:flutter_demo_project/widgets/view-location.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,6 +12,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  var latitude;
+  var longitude;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,6 +28,7 @@ class MyApp extends StatelessWidget {
           '/homepage': (context) => HomePage(),
           '/profilepage': (context) => ProfilePage(),
           '/settingspage': (context) => SettingsPage(),
+          '/viewlocation': (context) => ViewLocation(latitude, longitude),
         });
   }
 }

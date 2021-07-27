@@ -1,12 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/widgets/view-location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ListViewItems extends StatelessWidget {
   final int index;
   final List Electrician;
-  ListViewItems(this.index, this.Electrician);
+  var latitude;
+  var longitude;
+
+  ListViewItems(this.index, this.Electrician, this.latitude, this.longitude);
 
   void customLaunch(command) async {
     if (await canLaunch(command)) {
@@ -76,6 +81,24 @@ class ListViewItems extends StatelessWidget {
                           Text(
                             '\u{20B9} ${Electrician[index]['charges']}',
                             style: TextStyle(color: Colors.grey),
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ViewLocation(
+                                              latitude, longitude)));
+                                },
+                                child: Icon(
+                                  Icons.add_location,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              Text("Pune")
+                            ],
                           )
                         ],
                       )
