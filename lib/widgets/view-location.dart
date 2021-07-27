@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
-import 'package:latlong2/latlong.dart' as latLng;
-import 'package:latlong2/latlong.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ViewLocation extends StatefulWidget {
   @override
@@ -11,32 +9,40 @@ class ViewLocation extends StatefulWidget {
 }
 
 class _ViewLocationState extends State<ViewLocation> {
-  MapController controller = new MapController();
+  Completer<GoogleMapController> _controller = Completer();
 
-  var latitudedata;
-  var longitudedata;
-  late Position _currentPosition;
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  // MapController controller = new MapController();
+
+  // var latitudedata;
+  // var longitudedata;
+  // late Position _currentPosition;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getCurrentLocation();
+    // _getCurrentLocation()
   }
 
-  _getCurrentLocation() {
-    Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        // latitudedata = _currentPosition.latitude;
-        // longitudedata = _currentPosition.longitude;
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
+  // _getCurrentLocation() {
+  //   Geolocator()
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) {
+  //     setState(() {
+  //       _currentPosition = position;
+  //       // latitudedata = _currentPosition.latitude;
+  //       // longitudedata = _currentPosition.longitude;
+  //     });
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  // }
 
   // getCurrentLocation() async {
   //   //final geoposition= await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -85,17 +91,12 @@ class _ViewLocationState extends State<ViewLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FlutterMap(
-        mapController: controller,
-        options: new MapOptions(
-            center:
-                LatLng(_currentPosition.latitude, _currentPosition.longitude),
-            minZoom: 5.0),
-        layers: [
-          new TileLayerOptions(
-              urlTemplate: "https//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c']),
-        ],
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 11.0,
+        ),
       ),
     );
   }
