@@ -13,8 +13,8 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  var latitude;
-  var longitude;
+  late int index;
+  late List electrician;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           '/homepage': (context) => HomePage(),
           '/profilepage': (context) => ProfilePage(),
           '/settingspage': (context) => SettingsPage(),
-          '/viewlocation': (context) => ViewLocation(latitude, longitude),
+          '/viewlocation': (context) => ViewLocation(),
         });
   }
 }

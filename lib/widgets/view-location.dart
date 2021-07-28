@@ -1,28 +1,50 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/constants/globalconstanst.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ViewLocation extends StatefulWidget {
-  var latitude;
-  var longitude;
-
-  ViewLocation(this.latitude, this.longitude);
   @override
-  _ViewLocationState createState() => _ViewLocationState(latitude, longitude);
+  _ViewLocationState createState() => _ViewLocationState();
 }
 
 class _ViewLocationState extends State<ViewLocation> {
-  var latitude;
-  var longitude;
+  final Set<Marker> _markers = {};
+  // LatLng _center = LatLng(GlobalConstants.latitude, GlobalConstants.longitude);
+  LatLng _lastMapPosition =
+      LatLng(GlobalConstants.latitude, GlobalConstants.longitude);
 
-  _ViewLocationState(this.latitude, this.longitude);
+  void _onCameraMove(CameraPosition position) {
+    _lastMapPosition = position.target;
+  }
+
   Completer<GoogleMapController> _controller = Completer();
-
-  // static const LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _onAddMarkerButtonPressed();
+  }
+
+  void _onAddMarkerButtonPressed() {
+    setState(() {
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId(_lastMapPosition.toString()),
+        position: _lastMapPosition,
+        infoWindow: InfoWindow(
+          title: 'Really cool place',
+          snippet: '5 Star Rating',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+    });
   }
 
   @override
@@ -30,8 +52,10 @@ class _ViewLocationState extends State<ViewLocation> {
     return Scaffold(
       body: GoogleMap(
         onMapCreated: _onMapCreated,
+        onCameraMove: _onCameraMove,
+        markers: _markers,
         initialCameraPosition: CameraPosition(
-          target: LatLng(latitude, longitude),
+          target: LatLng(GlobalConstants.latitude, GlobalConstants.longitude),
           zoom: 11.0,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/constants/globalconstanst.dart';
 import 'package:flutter_demo_project/widgets/listview-items.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -10,22 +11,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String dropdownvalue = 'Electrician';
 
-  late Position _currentPosition;
-  var latitude;
-  var longitude;
+  // late Position _currentPosition;
 
-  Future<void> _getCurrentLocation() async {
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        latitude = _currentPosition.latitude;
-        longitude = _currentPosition.longitude;
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
+  // Future<void> _getCurrentLocation() async {
+  //   Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) {
+  //     setState(() {
+  //       _currentPosition = position;
+  //       GlobalConstants.latitude = _currentPosition.latitude;
+  //       GlobalConstants.longitude = _currentPosition.longitude;
+  //     });
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  // }
 
   List<String> items = [
     'Electrician',
@@ -33,22 +32,103 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List Electrician = [
-    {"name": "Sagar Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Raj Rathod", "phone": "98648758", "charges": "200"},
-    {"name": "Karan Patel", "phone": "98648758", "charges": "500"},
-    {"name": "Sham Joshi", "phone": "986543323", "charges": "200"},
-    {"name": "Rakesh Patil", "phone": "98648758", "charges": "300"},
-    {"name": "Shubham Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Pratik Thete", "phone": "98648758", "charges": "400"},
-    {"name": "Kunal Jadhav", "phone": "98648758", "charges": "200"},
-    {"name": "Ritik Jadhav", "phone": "98648758", "charges": "200"},
+    {
+      "name": "Sagar Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+    {
+      "name": "Raj Rathod",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Andheri west",
+        "latitude": 19.136326,
+        "longitude": 72.827660
+      }
+    },
+    {
+      "name": "Karan Patel",
+      "phone": "98648758",
+      "charges": "500",
+      "Address": {
+        "address": "Pune",
+        "latitude": 18.516726,
+        "longitude": 73.856255
+      }
+    },
+    {
+      "name": "Sham Joshi",
+      "phone": "986543323",
+      "charges": "200",
+      "Address": {
+        "address": "Mumbai",
+        "latitude": 19.076090,
+        "longitude": 72.877426
+      }
+    },
+    {
+      "name": "Rakesh Patil",
+      "phone": "98648758",
+      "charges": "300",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+    {
+      "name": "Shubham Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Andheri west",
+        "latitude": 19.136326,
+        "longitude": 72.827660
+      }
+    },
+    {
+      "name": "Pratik Thete",
+      "phone": "98648758",
+      "charges": "400",
+      "Address": {
+        "address": "Pune",
+        "latitude": 18.516726,
+        "longitude": 73.856255
+      }
+    },
+    {
+      "name": "Kunal Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Mumbai",
+        "latitude": 19.076090,
+        "longitude": 72.877426
+      }
+    },
+    {
+      "name": "Ritik Jadhav",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
   ];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getCurrentLocation();
+    // _getCurrentLocation();
   }
 
   @override
@@ -62,7 +142,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
               child: Container(
                 padding: EdgeInsets.only(left: mediaQuery.width * 0.1),
                 decoration: BoxDecoration(
@@ -101,16 +181,18 @@ class _HomePageState extends State<HomePage> {
                 overScroll.disallowGlow();
                 return false;
               },
-              child: Container(
-                child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    itemCount: Electrician.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        child: ListViewItems(
-                            index, Electrician, latitude, longitude),
-                      );
-                    }),
+              child: Padding(
+                padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
+                child: Container(
+                  child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      itemCount: Electrician.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          child: ListViewItems(index, Electrician),
+                        );
+                      }),
+                ),
               ),
             ))),
           ],

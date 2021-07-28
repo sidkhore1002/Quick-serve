@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/constants/globalconstanst.dart';
 import 'package:flutter_demo_project/widgets/profile-listview.dart';
+import 'package:flutter_demo_project/widgets/view-location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -9,6 +12,27 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late Position _currentPosition;
+
+  Future<void> _getCurrentLocation() async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        GlobalConstants.latitude = _currentPosition.latitude;
+        GlobalConstants.longitude = _currentPosition.longitude;
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
   List myservices = [
     {"name": "Sagar Jadhav", "phone": "98648758", "charges": "200"},
     {"name": "Raj Rathod", "phone": "98648758", "charges": "200"},
@@ -32,13 +56,37 @@ class _ProfilePageState extends State<ProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: mediaQuery.height * 0.12),
+                padding: EdgeInsets.only(
+                    top: mediaQuery.height * 0.05,
+                    right: mediaQuery.width * 0.04),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      GlobalConstants.latitude = _currentPosition.latitude;
+                      GlobalConstants.longitude = _currentPosition.longitude;
+                    });
+                    Navigator.pushNamed(context, '/viewlocation');
+                  },
+                  child: Container(
+                    alignment: Alignment.topRight,
+                    child: Icon(
+                      Icons.where_to_vote,
+                      color: Colors.red,
+                      size: mediaQuery.width * 0.08,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
                 child: Container(
                   width: mediaQuery.width * 0.27,
                   height: mediaQuery.width * 0.28,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/profile.jpg'),
+                        image: AssetImage(
+                          'assets/images/profile.jpg',
+                        ),
                         fit: BoxFit.cover),
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -77,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
         DraggableScrollableSheet(
             initialChildSize: 0.3,
             minChildSize: 0.3,
-            maxChildSize: 0.57,
+            maxChildSize: 0.52,
             builder: (BuildContext context, scrollerController) {
               return Padding(
                 padding: EdgeInsets.all(10.0),
