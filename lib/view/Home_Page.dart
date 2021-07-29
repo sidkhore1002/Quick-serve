@@ -11,27 +11,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String dropdownvalue = 'Electrician';
 
-  // late Position _currentPosition;
-
-  // Future<void> _getCurrentLocation() async {
-  //   Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-  //       .then((Position position) {
-  //     setState(() {
-  //       _currentPosition = position;
-  //       GlobalConstants.latitude = _currentPosition.latitude;
-  //       GlobalConstants.longitude = _currentPosition.longitude;
-  //     });
-  //   }).catchError((e) {
-  //     print(e);
-  //   });
-  // }
-
   List<String> items = [
     'Electrician',
     'Plumber',
   ];
 
-  List Electrician = [
+  List electrician = [
     {
       "name": "Sagar Jadhav",
       "phone": "98648758",
@@ -186,10 +171,10 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   child: ListView.builder(
                       physics: ClampingScrollPhysics(),
-                      itemCount: Electrician.length,
+                      itemCount: electrician.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          child: ListViewItems(index, Electrician),
+                          child: ListViewItems(index, electrician),
                         );
                       }),
                 ),

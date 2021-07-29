@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_project/constants/globalconstanst.dart';
 import 'package:flutter_demo_project/widgets/profile-listview.dart';
-import 'package:flutter_demo_project/widgets/view-location.dart';
 import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
