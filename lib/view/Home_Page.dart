@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_project/constants/globalconstanst.dart';
+
 import 'package:flutter_demo_project/widgets/listview-items.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_demo_project/widgets/plumber-listview.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String dropdownvalue = 'Electrician';
+  String? dropdownvalue = 'Electrician';
 
   List<String> items = [
     'Electrician',
@@ -109,6 +109,49 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
+  List plumber = [
+    {
+      "name": "Rahul Mahajan",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+    {
+      "name": "kishor Rathod",
+      "phone": "98648758",
+      "charges": "200",
+      "Address": {
+        "address": "Andheri west",
+        "latitude": 19.136326,
+        "longitude": 72.827660
+      }
+    },
+    {
+      "name": "Karan Patel",
+      "phone": "98648758",
+      "charges": "500",
+      "Address": {
+        "address": "Pune",
+        "latitude": 18.516726,
+        "longitude": 73.856255
+      }
+    },
+    {
+      "name": "Rakesh Patil",
+      "phone": "98648758",
+      "charges": "300",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+  ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -144,7 +187,10 @@ class _HomePageState extends State<HomePage> {
                 width: mediaQuery.width * 0.55,
                 // height: mediaQuery.width * 0.12,
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
+                  child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                      ),
                       value: dropdownvalue,
                       items: items.map((String itemslist) {
                         return DropdownMenuItem(
@@ -152,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          //    dropdownvalue = value;
+                          dropdownvalue = value;
                         });
                       }),
                 ),
@@ -168,16 +214,21 @@ class _HomePageState extends State<HomePage> {
               },
               child: Padding(
                 padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
-                child: Container(
-                  child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      itemCount: electrician.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          child: ListViewItems(index, electrician),
-                        );
-                      }),
-                ),
+                child: electrician.length == 0
+                    ? Text("no data")
+                    : Container(
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            itemCount: dropdownvalue == "Electrician"
+                                ? electrician.length
+                                : plumber.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                  child: dropdownvalue == "Electrician"
+                                      ? ListViewItems(index, electrician)
+                                      : PlumberListview(index, plumber));
+                            }),
+                      ),
               ),
             ))),
           ],

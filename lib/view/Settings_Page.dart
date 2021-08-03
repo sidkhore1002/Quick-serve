@@ -15,24 +15,24 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   List<ServiceModel> services = <ServiceModel>[];
 
-  List electrician = [
+  List sheetdata = [
     {
       "name": "Sagar Jadhav",
       "phone": "98648758",
       "charges": "200",
-      "Address": "pune"
+      "address": "pune"
     },
     {
-      "name": "Sagar Jadhav",
+      "name": "Ram Jadhav",
       "phone": "98648758",
       "charges": "200",
-      "Address": "pune"
+      "address": "mumbai"
     },
     {
-      "name": "Sagar Jadhav",
+      "name": "Karan Jadhav",
       "phone": "98648758",
       "charges": "200",
-      "Address": "pune"
+      "address": "pune"
     },
   ];
 
@@ -64,23 +64,34 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   postTest() async {
-    //String jsondata = jsonEncode(values);
-
     //print("helllo $jsondata ");
-    //Map<String, dynamic> args = {"comments": electrician};
-    //  var body = json.encode(electrician);
+    // Map<String, dynamic> args = {"comments": electrician};
+    // var values = json.encode(sheetdata);
+    for (int i = 0; i < sheetdata.length; i++) {
+      print(sheetdata.length);
+      print(sheetdata[i]['name']);
+      var values = {
+        "name": sheetdata[i]['name'],
+        "phone": sheetdata[i]['phone'],
+        "charges": sheetdata[i]['charges'],
+        "address": sheetdata[i]['address'],
+      };
+    }
 
     var values = {
-      "name": "Sagar Jadhav",
-      "phone": "98648758",
-      "charges": "200",
-      "Address": "pune",
+      "name": "ram",
+      "phone": "7654455",
+      "charges": "500",
+      "address": "Pune"
     };
 
+    String jsondata = jsonEncode(sheetdata);
+    print(jsondata);
     var url = Uri.parse(
-        'https://script.google.com/macros/s/AKfycbyhMbjWIL86FxxaXwAK1OlGbEkLDFn6JBVa5waTmnlC02rP5CtGSP38zScQ2j7QgLBA/exec');
-    var response = await http.post(url, body: values);
+        'https://script.google.com/macros/s/AKfycbwFkh2zpqIhpW27obM7lfl96XCfAdYTTrQIIW5UwbiU7pGjUrxJWlJKzyHEDUK8Rqat/exec');
+    var response = await http.post(url, body: jsondata);
 
+    print(response);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
