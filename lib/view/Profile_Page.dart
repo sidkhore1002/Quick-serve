@@ -4,14 +4,14 @@ import 'package:flutter_demo_project/widgets/profile-listview.dart';
 import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   late Position _currentPosition;
+
+  bool isOn = false;
 
   Future<void> _getCurrentLocation() async {
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
@@ -56,28 +56,54 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    top: mediaQuery.height * 0.05,
-                    right: mediaQuery.width * 0.04),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      GlobalConstants.latitude = _currentPosition.latitude;
-                      GlobalConstants.longitude = _currentPosition.longitude;
-                    });
-                    Navigator.pushNamed(context, '/viewlocation');
-                  },
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    child: Icon(
-                      Icons.where_to_vote,
-                      color: Colors.red,
-                      size: mediaQuery.width * 0.08,
+                  top: mediaQuery.height * 0.05,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          GlobalConstants.latitude = _currentPosition.latitude;
+                          GlobalConstants.longitude =
+                              _currentPosition.longitude;
+                        });
+                        Navigator.pushNamed(context, '/viewlocation');
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: mediaQuery.width * 0.03),
+                        child: Container(
+                          child: Icon(
+                            Icons.where_to_vote,
+                            color: Colors.red,
+                            size: mediaQuery.width * 0.08,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      child: Switch(
+                        activeColor: Colors.red,
+                        value: isOn,
+                        onChanged: (_isOn) {
+                          setState(() {
+                            isOn = _isOn;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(
+                  right: mediaQuery.width * 0.03,
+                ),
+                alignment: Alignment.topRight,
+                child: Text(isOn == true ? "Online" : "Offline"),
+              ),
               Padding(
-                padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
+                padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
                 child: Container(
                   width: mediaQuery.width * 0.27,
                   height: mediaQuery.width * 0.28,
@@ -117,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          height: mediaQuery.height * 0.40,
+          height: mediaQuery.height * 0.42,
           width: mediaQuery.width * 09,
           color: Colors.cyan[200],
         ),
@@ -130,25 +156,39 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.all(10.0),
                 child: Container(
                   child: Stack(children: [
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Image.asset(
-                        'assets/images/ic_scroll_up_bottom_sheet.png',
-                        color: Colors.black,
-                        height: mediaQuery.height * 0.035,
-                        width: mediaQuery.width * 0.08,
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                            'assets/images/ic_scroll_up_bottom_sheet.png',
+                            color: Colors.black,
+                            height: mediaQuery.height * 0.035,
+                            width: mediaQuery.width * 0.08,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Recent Services",
+                            style: TextStyle(color: Colors.black45),
+                          ),
+                        )
+                      ],
                     ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        itemCount: myservices.length,
-                        controller: scrollerController,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            child: ProfileListview(myservices, index),
-                          );
-                        })
+                    Padding(
+                      padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: myservices.length,
+                          controller: scrollerController,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              child: ProfileListview(myservices, index),
+                            );
+                          }),
+                    )
                   ]),
                   decoration: BoxDecoration(
                       color: Colors.grey[300],

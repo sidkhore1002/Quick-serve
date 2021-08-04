@@ -6,19 +6,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ListViewItems extends StatefulWidget {
   final int index;
-  final List electrician;
+  final List listdata;
 
-  ListViewItems(this.index, this.electrician);
+  ListViewItems(this.index, this.listdata);
 
   @override
-  _ListViewItemsState createState() => _ListViewItemsState(index, electrician);
+  _ListViewItemsState createState() => _ListViewItemsState(index, listdata);
 }
 
 class _ListViewItemsState extends State<ListViewItems> {
   final int index;
-  final List electrician;
+  final List listdata;
 
-  _ListViewItemsState(this.index, this.electrician);
+  _ListViewItemsState(this.index, this.listdata);
 
   void customLaunch(command) async {
     if (await canLaunch(command)) {
@@ -50,46 +50,85 @@ class _ListViewItemsState extends State<ListViewItems> {
           child: Container(
             width: mediaQuery.width,
             padding: EdgeInsets.only(
-                top: mediaQuery.width * 0.00, bottom: mediaQuery.width * 0.02),
+                top: mediaQuery.width * 0.03, bottom: mediaQuery.width * 0.02),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: mediaQuery.height * 0.01,
-                      left: mediaQuery.width * 0.01),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: mediaQuery.width * 0.20,
-                        height: mediaQuery.height * 0.09,
-                        child: CircleAvatar(
-                          backgroundColor: randomGenerator(),
-                          child: Text(
-                            electrician[index]['name'][0],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 20.0),
-                      Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: mediaQuery.width * 0.20,
+                  height: mediaQuery.height * 0.09,
+                  child: CircleAvatar(
+                    backgroundColor: randomGenerator(),
+                    child: Text(
+                      listdata[index]['name'][0],
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: mediaQuery.width * 0.05),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            electrician[index]['name'],
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: mediaQuery.width * 0.049,
-                                fontWeight: FontWeight.bold),
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  listdata[index]["name"],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: mediaQuery.width * 0.049,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                    right: mediaQuery.width * 0.08),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow[700],
+                                    ),
+                                    Text(
+                                      listdata[index]['stars'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(height: 5),
-                          Text(electrician[index]['phone']),
-                          SizedBox(height: 5),
                           Text(
-                            '\u{20B9} ${electrician[index]['charges']}',
-                            style: TextStyle(color: Colors.grey),
+                            listdata[index]['phone'],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '\u{20B9} ${listdata[index]['charges']}',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              GestureDetector(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.only(
+                                        right: mediaQuery.width * 0.08),
+                                    child: Icon(Icons.call)),
+                                onTap: () {
+                                  customLaunch(
+                                      'tel:${listdata[index]["phone"]}');
+                                },
+                              )
+                            ],
                           ),
                           Row(
                             children: [
@@ -97,11 +136,9 @@ class _ListViewItemsState extends State<ListViewItems> {
                                 onTap: () {
                                   setState(() {
                                     GlobalConstants.latitude =
-                                        electrician[index]["Address"]
-                                            ["latitude"];
+                                        listdata[index]["Address"]["latitude"];
                                     GlobalConstants.longitude =
-                                        electrician[index]["Address"]
-                                            ["longitude"];
+                                        listdata[index]["Address"]["longitude"];
                                   });
                                   Navigator.pushNamed(context, '/viewlocation');
                                 },
@@ -110,23 +147,17 @@ class _ListViewItemsState extends State<ListViewItems> {
                                   color: Colors.red,
                                 ),
                               ),
-                              Text(electrician[index]["Address"]["address"])
+                              Text(
+                                listdata[index]["Address"]["address"],
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ],
                           )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(right: mediaQuery.width * 0.08),
-                      child: Icon(Icons.call)),
-                  onTap: () {
-                    customLaunch('tel:${electrician[index]["phone"]}');
-                  },
-                )
               ],
             ),
           )),

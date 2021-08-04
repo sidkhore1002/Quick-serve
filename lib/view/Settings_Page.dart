@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
     },
   ];
 
-  getFeedbackFromSheet() async {
+  getGoogleSheetdata() async {
     var raw = await http.get(Uri.parse(
         "https://script.google.com/macros/s/AKfycbygLlV_ITs8s7_kI9xU4pxs85jVTJhK1xBlJYbEJTtL28GEARLEUHTFCSUjRECeqTjF/exec"));
 
@@ -63,9 +63,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
-  postTest() async {
-    //print("helllo $jsondata ");
-    // Map<String, dynamic> args = {"comments": electrician};
+  writeGooglesheetdata() async {
     // var values = json.encode(sheetdata);
     for (int i = 0; i < sheetdata.length; i++) {
       print(sheetdata.length);
@@ -76,32 +74,23 @@ class _SettingsPageState extends State<SettingsPage> {
         "charges": sheetdata[i]['charges'],
         "address": sheetdata[i]['address'],
       };
+
+      var url = Uri.parse(
+          'https://script.google.com/macros/s/AKfycbybmujrEG6gaAtrw3ciOOeHCYbc02mSaYfq3CpwxYsVFiqgtlmv1erIwSLo8N4mCuZK/exec');
+      var response = await http.post(url, body: values);
+
+      print(response);
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      //  print(await http.read(url));
     }
-
-    var values = {
-      "name": "ram",
-      "phone": "7654455",
-      "charges": "500",
-      "address": "Pune"
-    };
-
-    String jsondata = jsonEncode(sheetdata);
-    print(jsondata);
-    var url = Uri.parse(
-        'https://script.google.com/macros/s/AKfycbwFkh2zpqIhpW27obM7lfl96XCfAdYTTrQIIW5UwbiU7pGjUrxJWlJKzyHEDUK8Rqat/exec');
-    var response = await http.post(url, body: jsondata);
-
-    print(response);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    //  print(await http.read(url));
   }
 
   @override
   void initState() {
-    // getFeedbackFromSheet();
-    // postTest();
+    //getGoogleSheetdata();
+
     super.initState();
   }
 
@@ -111,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Center(
         child: ElevatedButton(
           onPressed: () {
-            postTest();
+            writeGooglesheetdata();
           },
           child: Text("press"),
         ),
