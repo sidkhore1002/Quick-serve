@@ -12,11 +12,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? dropdownvalue = 'Electrician';
 
-  List<String> items = [
-    'Electrician',
-    'Plumber',
-  ];
-
+  List<String> items = ['Electrician', 'Plumber', 'Contractor'];
+  List newList = [];
   List electrician = [
     {
       "name": "Sagar Jadhav ",
@@ -121,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 
   List plumber = [
     {
-      "name": "Rahul Mahajan",
+      "name": " plumber Rahul Mahajan",
       "phone": "98648758",
       "charges": "200",
       "stars": "2",
@@ -132,7 +129,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": "kishor Rathod",
+      "name": " plumber kishor Rathod",
       "phone": "98648758",
       "charges": "200",
       "stars": "2",
@@ -143,7 +140,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": "Karan Patel",
+      "name": " plumber Karan Patel",
       "phone": "98648758",
       "charges": "500",
       "stars": "2",
@@ -154,7 +151,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": "Rakesh Patil",
+      "name": " plumber Rakesh Patil",
       "phone": "98648758",
       "charges": "300",
       "stars": "2",
@@ -179,14 +176,14 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": " contractor kishor",
+      "name": "contractor Rakesh ",
       "phone": "98648758",
-      "charges": "200",
+      "charges": "300",
       "stars": "2",
       "Address": {
-        "address": "Andheri west",
-        "latitude": 19.136326,
-        "longitude": 72.827660
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
       }
     },
     {
@@ -201,7 +198,29 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": "contractor Rakesh ",
+      "name": "contractor Milind ",
+      "phone": "98648758",
+      "charges": "300",
+      "stars": "2",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+    {
+      "name": "contractor Mahesh ",
+      "phone": "98648758",
+      "charges": "300",
+      "stars": "2",
+      "Address": {
+        "address": "Borivali",
+        "latitude": 19.228825,
+        "longitude": 72.854118
+      }
+    },
+    {
+      "name": "contractor Ramesh ",
       "phone": "98648758",
       "charges": "300",
       "stars": "2",
@@ -215,9 +234,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // _getCurrentLocation();
+    newList = electrician;
   }
 
   @override
@@ -248,10 +266,7 @@ class _HomePageState extends State<HomePage> {
                 width: mediaQuery.width * 0.55,
                 // height: mediaQuery.width * 0.12,
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        enabledBorder: InputBorder.none,
-                      ),
+                  child: DropdownButton<String>(
                       value: dropdownvalue,
                       items: items.map((String itemslist) {
                         return DropdownMenuItem(
@@ -260,6 +275,16 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (value) {
                         setState(() {
                           dropdownvalue = value;
+                          if (dropdownvalue == "Electrician") {
+                            newList = [];
+                            newList = electrician;
+                          } else if (dropdownvalue == "Plumber") {
+                            newList = [];
+                            newList = plumber;
+                          } else if (dropdownvalue == "Contractor") {
+                            newList = [];
+                            newList = contractor;
+                          }
                         });
                       }),
                 ),
@@ -274,21 +299,18 @@ class _HomePageState extends State<HomePage> {
                 return false;
               },
               child: Padding(
-                padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
-                child: Container(
-                  child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      itemCount: dropdownvalue == "Electrician"
-                          ? electrician.length
-                          : plumber.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            child: dropdownvalue == "Electrician"
-                                ? ListViewItems(index, electrician)
-                                : ListViewItems(index, plumber));
-                      }),
-                ),
-              ),
+                  padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
+                  child: (newList.length != 0)
+                      ? Container(
+                          child: ListView.builder(
+                              physics: ClampingScrollPhysics(),
+                              itemCount: newList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                    child: ListViewItems(index, newList));
+                              }),
+                        )
+                      : SizedBox()),
             ))),
           ],
         ),
