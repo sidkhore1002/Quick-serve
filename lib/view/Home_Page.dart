@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 
   List plumber = [
     {
-      "name": " plumber Rahul Mahajan",
+      "name": "plumber Rahul Mahajan",
       "phone": "98648758",
       "charges": "200",
       "stars": "2",
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": " plumber kishor Rathod",
+      "name": "plumber kishor Rathod",
       "phone": "98648758",
       "charges": "200",
       "stars": "2",
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": " plumber Karan Patel",
+      "name": "plumber Karan Patel",
       "phone": "98648758",
       "charges": "500",
       "stars": "2",
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": " plumber Rakesh Patil",
+      "name": "plumber Rakesh Patil",
       "phone": "98648758",
       "charges": "300",
       "stars": "2",
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
       }
     },
     {
-      "name": " contractor Karan ",
+      "name": "contractor Karan ",
       "phone": "98648758",
       "charges": "500",
       "stars": "2",
@@ -242,16 +242,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.only(top: mediaQuery.height * 0.04),
+        body: SafeArea(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
+              padding: EdgeInsets.only(top: mediaQuery.height * 0.04,
+                right: mediaQuery.width*0.03),
               child: Container(
-                padding: EdgeInsets.only(left: mediaQuery.width * 0.1),
+                padding: EdgeInsets.only(left: mediaQuery.width * 0.05),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.white,
@@ -299,15 +299,14 @@ class _HomePageState extends State<HomePage> {
                 return false;
               },
               child: Padding(
-                  padding: EdgeInsets.only(top: mediaQuery.height * 0.02),
+                  padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
                   child: (newList.length != 0)
                       ? Container(
                           child: ListView.builder(
                               physics: ClampingScrollPhysics(),
                               itemCount: newList.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return Container(
-                                    child: ListViewItems(index, newList));
+                                return ListViewItems(index, newList);
                               }),
                         )
                       : SizedBox()),

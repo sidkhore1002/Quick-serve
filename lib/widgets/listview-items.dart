@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_project/constants/globalconstanst.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ListViewItems extends StatefulWidget {
+// class ListViewItems extends StatefulWidget {
+//   final int index;
+//   final List listdata;
+
+//   ListViewItems(this.index, this.listdata);
+
+//   @override
+//   _ListViewItemsState createState() => _ListViewItemsState(index, listdata);
+// }
+
+class ListViewItems extends StatelessWidget {
   final int index;
   final List listdata;
 
   ListViewItems(this.index, this.listdata);
-
-  @override
-  _ListViewItemsState createState() => _ListViewItemsState(index, listdata);
-}
-
-class _ListViewItemsState extends State<ListViewItems> {
-  final int index;
-  final List listdata;
-
-  _ListViewItemsState(this.index, this.listdata);
 
   void customLaunch(command) async {
     if (await canLaunch(command)) {
@@ -45,12 +45,18 @@ class _ListViewItemsState extends State<ListViewItems> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
     return Container(
+      padding: EdgeInsets.only(
+        top: mediaQuery.width * 0.01, bottom: mediaQuery.width * 0.02,
+        left: mediaQuery.width*0.02, right: mediaQuery.width*0.02),
       child: Card(
-          elevation: 5.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(mediaQuery.width*0.04)),
+          elevation: 4.0,
           child: Container(
             width: mediaQuery.width,
             padding: EdgeInsets.only(
-                top: mediaQuery.width * 0.03, bottom: mediaQuery.width * 0.02),
+                top: mediaQuery.width * 0.03, bottom: mediaQuery.width * 0.02,
+                left: mediaQuery.width*0.02),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -134,12 +140,12 @@ class _ListViewItemsState extends State<ListViewItems> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  setState(() {
+                                  // setState(() {
                                     GlobalConstants.latitude =
                                         listdata[index]["Address"]["latitude"];
                                     GlobalConstants.longitude =
                                         listdata[index]["Address"]["longitude"];
-                                  });
+                                  // });
                                   Navigator.pushNamed(context, '/viewlocation');
                                 },
                                 child: Icon(
