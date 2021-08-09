@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
-
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -89,7 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    //getGoogleSheetdata();
+    getGoogleSheetdata();
 
     super.initState();
   }
@@ -102,7 +100,7 @@ class _SettingsPageState extends State<SettingsPage> {
           onPressed: () {
             writeGooglesheetdata();
           },
-          child: Text("press"),
+          child: Text("submit"),
         ),
       ),
     );

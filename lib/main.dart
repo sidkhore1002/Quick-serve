@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.pink[800],
+          primaryColor: Colors.white,
           accentColorBrightness: Brightness.light,
         ),
         debugShowCheckedModeBanner: false,

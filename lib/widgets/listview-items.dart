@@ -46,17 +46,20 @@ class ListViewItems extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.only(
-        top: mediaQuery.width * 0.01, bottom: mediaQuery.width * 0.02,
-        left: mediaQuery.width*0.02, right: mediaQuery.width*0.02),
+          top: mediaQuery.width * 0.01,
+          bottom: mediaQuery.width * 0.02,
+          left: mediaQuery.width * 0.02,
+          right: mediaQuery.width * 0.02),
       child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(mediaQuery.width*0.04)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(mediaQuery.width * 0.04)),
           elevation: 4.0,
           child: Container(
             width: mediaQuery.width,
             padding: EdgeInsets.only(
-                top: mediaQuery.width * 0.03, bottom: mediaQuery.width * 0.02,
-                left: mediaQuery.width*0.02),
+                top: mediaQuery.width * 0.03,
+                bottom: mediaQuery.width * 0.02,
+                left: mediaQuery.width * 0.02),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -136,28 +139,27 @@ class ListViewItems extends StatelessWidget {
                               )
                             ],
                           ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  // setState(() {
-                                    GlobalConstants.latitude =
-                                        listdata[index]["Address"]["latitude"];
-                                    GlobalConstants.longitude =
-                                        listdata[index]["Address"]["longitude"];
-                                  // });
-                                  Navigator.pushNamed(context, '/viewlocation');
-                                },
-                                child: Icon(
+                          GestureDetector(
+                            onTap: () {
+                              GlobalConstants.latitude =
+                                  listdata[index]["Address"]["latitude"];
+                              GlobalConstants.longitude =
+                                  listdata[index]["Address"]["longitude"];
+                              // });
+                              Navigator.pushNamed(context, '/viewlocation');
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
                                   Icons.where_to_vote,
                                   color: Colors.red,
                                 ),
-                              ),
-                              Text(
-                                listdata[index]["Address"]["address"],
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                                Text(
+                                  listdata[index]["Address"]["address"],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

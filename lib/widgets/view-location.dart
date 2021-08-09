@@ -50,6 +50,16 @@ class _ViewLocationState extends State<ViewLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         onCameraMove: _onCameraMove,
