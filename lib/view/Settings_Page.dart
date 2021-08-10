@@ -1,9 +1,8 @@
-import 'dart:convert';
-
+import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_project/model/service-model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
+import 'package:flutter_demo_project/popup/logout-popup.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter_demo_project/constants/globalconstanst.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -11,98 +10,167 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  List<ServiceModel> services = <ServiceModel>[];
+  bool status = false;
 
-  List sheetdata = [
-    {
-      "name": "Sagar Jadhav",
-      "phone": "98648758",
-      "charges": "200",
-      "address": "pune"
-    },
-    {
-      "name": "Ram Jadhav",
-      "phone": "98648758",
-      "charges": "200",
-      "address": "mumbai"
-    },
-    {
-      "name": "Karan Jadhav",
-      "phone": "98648758",
-      "charges": "200",
-      "address": "pune"
-    },
-  ];
+  late Position _currentPosition;
 
-  getGoogleSheetdata() async {
-    var raw = await http.get(Uri.parse(
-        "https://script.google.com/macros/s/AKfycbygLlV_ITs8s7_kI9xU4pxs85jVTJhK1xBlJYbEJTtL28GEARLEUHTFCSUjRECeqTjF/exec"));
-
-    var jsonService = convert.jsonDecode(raw.body);
-
-    print('this is json service $jsonService');
-
-    // feedbacks = jsonFeedback.map((json) => FeedbackModel.fromJson(json));
-
-    jsonService.forEach((element) {
-      print(element);
-      ServiceModel serviceModel =
-          new ServiceModel(address: '', name: '', phone: '', charges: '');
-      serviceModel.name = element['name'];
-      serviceModel.phone = element['phone'].toString();
-      serviceModel.charges = element['charges'].toString();
-      serviceModel.address = element['address'];
-
-      services.add(serviceModel);
+  Future<void> _getCurrentLocation() async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        GlobalConstants.latitude = _currentPosition.latitude;
+        GlobalConstants.longitude = _currentPosition.longitude;
+      });
+    }).catchError((e) {
+      print(e);
     });
-
-    for (int i = 1; i < services.length; i++) {
-      print(services[i].name);
-    }
-  }
-
-  writeGooglesheetdata() async {
-    // var values = json.encode(sheetdata);
-    for (int i = 0; i < sheetdata.length; i++) {
-      print(sheetdata.length);
-      print(sheetdata[i]['name']);
-      var values = {
-        "name": sheetdata[i]['name'],
-        "phone": sheetdata[i]['phone'],
-        "charges": sheetdata[i]['charges'],
-        "address": sheetdata[i]['address'],
-      };
-
-      var url = Uri.parse(
-          'https://script.google.com/macros/s/AKfycbybmujrEG6gaAtrw3ciOOeHCYbc02mSaYfq3CpwxYsVFiqgtlmv1erIwSLo8N4mCuZK/exec');
-      var response = await http.post(url, body: values);
-
-      print(response);
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-
-      //  print(await http.read(url));
-    }
   }
 
   @override
   void initState() {
-    getGoogleSheetdata();
-
     super.initState();
+    _getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context).size;
     return Container(
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            writeGooglesheetdata();
-          },
-          child: Text("submit"),
+        child: SafeArea(
+            child: Column(children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(mediaQuery.width * 0.25)),
+          color: Colors.cyan[200],
         ),
+        width: mediaQuery.width,
+        height: mediaQuery.height * 0.16,
+        child: Padding(
+            padding: EdgeInsets.only(top: mediaQuery.height * 0.05),
+            child: Text(
+              "Settings",
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.6),
+                  fontWeight: FontWeight.bold,
+                  fontSize: mediaQuery.width * 0.08),
+              textAlign: TextAlign.center,
+            )),
       ),
+      Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: mediaQuery.height * 0.12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: mediaQuery.height * 0.001),
+                      child: IconButton(
+                        icon: Icon(Icons.person_add_alt_1_outlined),
+                        onPressed: null,
+                      ),
+                    ),
+                    Padding(
+                        padding:
+                            EdgeInsets.only(right: mediaQuery.width * 0.01),
+                        child: Center(
+                          child: Text(
+                            "Status",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: mediaQuery.width * 0.05),
+                          ),
+                        )),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: mediaQuery.height * 0.001),
+                  child: Transform.scale(
+                    scale: 0.7,
+                    child: CustomSwitch(
+                      activeColor: Colors.cyan[200],
+                      value: status,
+                      onChanged: (value) {
+                        setState(() {
+                          status = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      Divider(),
+      GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/viewlocation');
+        },
+        child: bulidSettingOptions(
+            context, Icon(Icons.where_to_vote_outlined), "My location"),
+      ),
+      Divider(),
+      GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/contactus');
+        },
+        child: bulidSettingOptions(
+            context, Icon(Icons.contact_mail_outlined), "Contact Us"),
+      ),
+      Divider(),
+      GestureDetector(
+        onTap: () {
+          showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) => LogoutPopup(),
+          );
+        },
+        child: bulidSettingOptions(
+            context, Icon(Icons.logout_outlined), "Log Out"),
+      )
+    ])));
+  }
+
+  bulidSettingOptions(BuildContext context, Icon icon, String title) {
+    var mediaQuery = MediaQuery.of(context).size;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: mediaQuery.height * 0.001),
+              child: IconButton(
+                icon: icon,
+                onPressed: null,
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: mediaQuery.width * 0.01),
+                child: Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        color: Colors.black, fontSize: mediaQuery.width * 0.05),
+                  ),
+                )),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: mediaQuery.height * 0.001),
+          child: IconButton(
+            icon: Icon(Icons.arrow_forward_ios, size: mediaQuery.height * 0.03),
+            onPressed: null,
+          ),
+        ),
+      ],
     );
   }
 }

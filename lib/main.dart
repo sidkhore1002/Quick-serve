@@ -4,6 +4,7 @@ import 'package:flutter_demo_project/view/Profile_Page.dart';
 import 'package:flutter_demo_project/view/Settings_Page.dart';
 
 import 'package:flutter_demo_project/view/tabs.dart';
+import 'package:flutter_demo_project/widgets/contact-us.dart';
 import 'package:flutter_demo_project/widgets/view-location.dart';
 
 void main() {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           '/profilepage': (context) => ProfilePage(),
           '/settingspage': (context) => SettingsPage(),
           '/viewlocation': (context) => ViewLocation(),
+          '/contactus': (context) => ContcatUs(),
         });
   }
 }

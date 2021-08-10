@@ -37,9 +37,9 @@ class ListViewItems extends StatelessWidget {
     Colors.purple
   ];
 
-  Color randomGenerator() {
-    return circleColors[new Random().nextInt(circleColors.length)];
-  }
+  // Color randomGenerator() {
+  //   return circleColors[new Random().nextInt(circleColors.length)];
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,8 @@ class ListViewItems extends StatelessWidget {
                   width: mediaQuery.width * 0.20,
                   height: mediaQuery.height * 0.09,
                   child: CircleAvatar(
-                    backgroundColor: randomGenerator(),
+                    backgroundColor: Colors
+                        .primaries[Random().nextInt(Colors.primaries.length)],
                     child: Text(
                       listdata[index]['name'][0],
                       style: TextStyle(

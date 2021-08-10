@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_demo_project/widgets/listview-items.dart';
-import 'package:flutter_demo_project/widgets/plumber-listview.dart';
-import 'package:flutter_demo_project/widgets/profile-listview.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -248,8 +246,9 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: mediaQuery.height * 0.04,
-                right: mediaQuery.width*0.03),
+              padding: EdgeInsets.only(
+                  top: mediaQuery.height * 0.04,
+                  right: mediaQuery.width * 0.03),
               child: Container(
                 padding: EdgeInsets.only(left: mediaQuery.width * 0.05),
                 decoration: BoxDecoration(

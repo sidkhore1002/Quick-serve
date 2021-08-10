@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_project/constants/globalconstanst.dart';
+
 import 'package:flutter_demo_project/widgets/profile-listview.dart';
-import 'package:geolocator/geolocator.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -9,29 +8,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late Position _currentPosition;
-
-  bool isOn = false;
-
-  Future<void> _getCurrentLocation() async {
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        GlobalConstants.latitude = _currentPosition.latitude;
-        GlobalConstants.longitude = _currentPosition.longitude;
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
-  }
-
   List myservices = [
     {"name": "Sagar Jadhav", "phone": "98648758", "charges": "200"},
     {"name": "Raj Rathod", "phone": "98648758", "charges": "200"},
@@ -55,55 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                  top: mediaQuery.height * 0.05,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          GlobalConstants.latitude = _currentPosition.latitude;
-                          GlobalConstants.longitude =
-                              _currentPosition.longitude;
-                        });
-                        Navigator.pushNamed(context, '/viewlocation');
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(left: mediaQuery.width * 0.03),
-                        child: Container(
-                          child: Icon(
-                            Icons.where_to_vote,
-                            color: Colors.red,
-                            size: mediaQuery.width * 0.08,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Switch(
-                        activeColor: Colors.red,
-                        value: isOn,
-                        onChanged: (_isOn) {
-                          setState(() {
-                            isOn = _isOn;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  right: mediaQuery.width * 0.03,
-                ),
-                alignment: Alignment.topRight,
-                child: Text(isOn == true ? "Online" : "Offline"),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: mediaQuery.height * 0.01),
+                padding: EdgeInsets.only(top: mediaQuery.height * 0.06),
                 child: Container(
                   width: mediaQuery.width * 0.27,
                   height: mediaQuery.width * 0.28,
@@ -143,14 +71,14 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          height: mediaQuery.height * 0.42,
+          height: mediaQuery.height * 0.33,
           width: mediaQuery.width * 09,
           color: Colors.cyan[200],
         ),
         DraggableScrollableSheet(
             initialChildSize: 0.3,
             minChildSize: 0.3,
-            maxChildSize: 0.52,
+            maxChildSize: 0.60,
             builder: (BuildContext context, scrollerController) {
               return Padding(
                 padding: EdgeInsets.all(10.0),
