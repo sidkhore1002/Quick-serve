@@ -176,18 +176,25 @@ class _ProfilePageState extends State<ProfilePage> {
                         )
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemCount: myservices.length,
-                          controller: scrollerController,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              child: ProfileListview(myservices, index),
-                            );
-                          }),
+                    NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification:
+                          (OverscrollIndicatorNotification overScroll) {
+                        overScroll.disallowGlow();
+                        return false;
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(top: mediaQuery.height * 0.03),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: myservices.length,
+                            controller: scrollerController,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                child: ProfileListview(myservices, index),
+                              );
+                            }),
+                      ),
                     )
                   ]),
                   decoration: BoxDecoration(
