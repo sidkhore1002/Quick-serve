@@ -67,8 +67,8 @@ class ListViewItems extends StatelessWidget {
                   width: mediaQuery.width * 0.20,
                   height: mediaQuery.height * 0.09,
                   child: CircleAvatar(
-                    backgroundColor: Colors
-                        .primaries[Random().nextInt(Colors.primaries.length)],
+                    backgroundColor:
+                        (index % 2 == 0) ? Colors.red : Colors.blue,
                     child: Text(
                       listdata[index]['name'][0],
                       style: TextStyle(

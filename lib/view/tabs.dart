@@ -34,6 +34,7 @@ class _TabScreenState extends State<TabScreen>
       bottomNavigationBar: Material(
         color: Colors.white,
         child: TabBar(
+          indicator: BoxDecoration(color: Colors.cyan[200]),
           labelColor: Colors.black,
           labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           tabs: <Widget>[

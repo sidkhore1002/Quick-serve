@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_project/view/Home_Page.dart';
 import 'package:flutter_demo_project/view/Profile_Page.dart';
 import 'package:flutter_demo_project/view/Settings_Page.dart';
+import 'package:flutter_demo_project/view/login-screen.dart';
+import 'package:flutter_demo_project/view/otp-screen.dart';
 
 import 'package:flutter_demo_project/view/tabs.dart';
 import 'package:flutter_demo_project/widgets/contact-us.dart';
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => TabScreen(),
+          '/': (context) => LoginScreen(),
+          '/tabscreen': (context) => TabScreen(),
+          '/otpscreen': (context) => OtpScreen(),
           '/homepage': (context) => HomePage(),
           '/profilepage': (context) => ProfilePage(),
           '/settingspage': (context) => SettingsPage(),
