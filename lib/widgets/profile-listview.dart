@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileListview extends StatelessWidget {
-  late int index;
-  late List myservices;
+  int index;
+  List myservices;
 
   ProfileListview(this.myservices, this.index);
 
@@ -15,19 +15,6 @@ class ProfileListview extends StatelessWidget {
     } else {
       print(' could not launch $command');
     }
-  }
-
-  final List<Color> circleColors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.amber,
-    Colors.pink,
-    Colors.purple
-  ];
-
-  Color randomGenerator() {
-    return circleColors[new Random().nextInt(circleColors.length)];
   }
 
   @override
@@ -51,7 +38,8 @@ class ProfileListview extends StatelessWidget {
                         width: mediaQuery.width * 0.20,
                         height: mediaQuery.height * 0.08,
                         child: CircleAvatar(
-                          backgroundColor: randomGenerator(),
+                          backgroundColor:
+                              (index % 2 == 0) ? Colors.red : Colors.blue,
                           child: Text(
                             myservices[index]['name'][0],
                             style: TextStyle(

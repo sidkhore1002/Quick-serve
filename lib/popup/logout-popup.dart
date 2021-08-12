@@ -72,7 +72,7 @@ class _LogoutPopupState extends State<LogoutPopup> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/loginscreen');
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

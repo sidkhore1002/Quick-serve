@@ -10,7 +10,7 @@ class TabScreen extends StatefulWidget {
 
 class _TabScreenState extends State<TabScreen>
     with SingleTickerProviderStateMixin {
-  late TabController controller;
+  TabController controller;
 
   @override
   void initState() {

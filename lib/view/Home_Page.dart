@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? dropdownvalue = 'Electrician';
+  String dropdownvalue = 'Electrician';
 
   List<String> items = ['Electrician', 'Plumber', 'Contractor'];
   List newList = [];

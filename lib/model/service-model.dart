@@ -4,11 +4,7 @@ class ServiceModel {
   String charges;
   String address;
 
-  ServiceModel(
-      {required this.name,
-      required this.phone,
-      required this.charges,
-      required this.address});
+  ServiceModel({this.name, this.phone, this.charges, this.address});
 
   factory ServiceModel.fromJson(dynamic json) {
     return ServiceModel(

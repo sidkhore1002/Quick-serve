@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo_project/popup/error-popup.dart';
+import 'package:flutter_demo_project/utils/toast-utils.dart';
+import 'package:flutter_demo_project/view-models/login-screen-viewmodel.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -137,45 +139,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email);
                           if (emailValid == true) {
-                            // ToastUtils.showCustomToast(context,
-                            //     "Password must be 8-16 characters long");
+                            getEmail();
                             Navigator.pushNamed(context, '/otpscreen');
                           } else {
-                            MessagePopup popup = new MessagePopup(
-                              okButton: true,
-                              okButtonText: 'Ok',
-                              cancelButton: false,
-                              okButtonExpanded: false,
-                              bodyText: "Please enter valid email address",
-                              type: MessagePopupImage.ALERT,
-                              okCallback: (_, __) {},
-                              backgroundDismissible: true,
-                              cancelButtonText: '',
-                              cancelCallback: () {},
-                              buttonInColumn: false,
-                            );
-                            popup.showMaterialDialog(context);
+                            ToastUtils.showCustomToast(
+                                context, "Please enter valid email address");
                           }
                         } else {
-                          MessagePopup popup = new MessagePopup(
-                            okButton: true,
-                            okButtonText: 'Ok',
-                            cancelButton: false,
-                            okButtonExpanded: false,
-                            bodyText: "Please enter email",
-                            type: MessagePopupImage.ALERT,
-                            okCallback: (_, __) {},
-                            backgroundDismissible: true,
-                            cancelButtonText: '',
-                            cancelCallback: () {},
-                            buttonInColumn: false,
-                          );
-                          popup.showMaterialDialog(context);
+                          ToastUtils.showCustomToast(
+                              context, "Please enter email");
                         }
 
                         // popup.showMaterialDialog(context);
                       }))),
           SizedBox(height: 15),
         ])));
+  }
+
+  getEmail() {
+    LoginScreenViewModel().loginwithEmail(context, email);
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ContcatUs extends StatelessWidget {
-  const ContcatUs({Key? key}) : super(key: key);
-
+class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo_project/constants/globalconstanst.dart';
+import 'package:flutter_demo_project/popup/error-popup.dart';
+import 'package:flutter_demo_project/utils/toast-utils.dart';
+import 'package:flutter_demo_project/view-models/Otp-screen-viewModel.dart';
 
 class OtpScreen extends StatefulWidget {
   @override
@@ -130,15 +133,25 @@ class _OtpScreenState extends State<OtpScreen> {
                               BorderRadius.circular(mediaQuery.width * 0.06),
                         ),
                       ),
-                      child: Text('Verify',
+                      child: Text('Login',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: mediaQuery.width * 0.05,
                               fontWeight: FontWeight.w500)),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/tabscreen');
+                        if (otp != "") {
+                          getOtp();
+                          Navigator.pushNamed(context, '/tabscreen');
+                        } else {
+                          ToastUtils.showCustomToast(
+                              context, "Please enter OTP");
+                        }
                       }))),
           SizedBox(height: 15),
         ])));
+  }
+
+  getOtp() {
+    OTPScreenViewModel().verifyOtp(context, otp);
   }
 }

@@ -17,17 +17,17 @@ class MessagePopup {
   final bool okButtonExpanded;
 
   MessagePopup(
-      {required this.okButton,
-      required this.okButtonText,
-      required this.cancelButton,
-      required this.cancelButtonText,
-      required this.bodyText,
-      required this.cancelCallback,
-      required this.okCallback,
-      required this.type,
-      required this.backgroundDismissible,
-      required this.buttonInColumn,
-      required this.okButtonExpanded});
+      {this.okButton,
+      this.okButtonText,
+      this.cancelButton,
+      this.cancelButtonText,
+      this.bodyText,
+      this.cancelCallback,
+      this.okCallback,
+      this.type,
+      this.backgroundDismissible,
+      this.buttonInColumn,
+      this.okButtonExpanded});
 
   void showMaterialDialog(context) {
     showDialog(
