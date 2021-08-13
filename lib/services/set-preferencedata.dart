@@ -10,8 +10,7 @@ class PreferencesData {
 
   static Future<String> getUserLoginData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return userInfo;
-    //prefs.getString(userInfo);
+    return prefs.getString(userInfo);
   }
 
   static Future<void> clearPrefs() async {
