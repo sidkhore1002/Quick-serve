@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/services/set-preferencedata.dart';
 import 'package:flutter_demo_project/view/Home_Page.dart';
 import 'package:flutter_demo_project/view/Profile_Page.dart';
 import 'package:flutter_demo_project/view/Settings_Page.dart';
@@ -18,6 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget defaultScreen = LoginScreen();
+    var userData = PreferencesData.getUserLoginData();
+    print("////////////$userData");
+    if (userData != null) {
+      defaultScreen = TabScreen();
+    }
+
     return MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.white,

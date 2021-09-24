@@ -2,6 +2,7 @@ import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo_project/popup/logout-popup.dart';
+import 'package:flutter_freshchat/flutter_freshchat.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_demo_project/constants/globalconstanst.dart';
 
@@ -134,6 +135,16 @@ class _SettingsPageState extends State<SettingsPage> {
             },
             child: bulidSettingOptions(
                 context, Icon(Icons.contact_mail_outlined), "Contact Us"),
+          ),
+          Divider(),
+          GestureDetector(
+            onTap: () async {
+              String title = "Support Screen";
+              await FlutterFreshchat.showConversations(
+                  tags: const [], title: title);
+            },
+            child: bulidSettingOptions(
+                context, Icon(Icons.contact_mail_outlined), "Support"),
           ),
           Divider(),
           GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/services/set-preferencedata.dart';
 
 class LogoutPopup extends StatefulWidget {
   LogoutPopup();
@@ -72,7 +73,13 @@ class _LogoutPopupState extends State<LogoutPopup> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/loginscreen');
+                            var userdata = PreferencesData.clearPrefs();
+                            print("lllllllll$userdata");
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
+                            Navigator.of(context)
+                                .pushReplacementNamed('/loginscreen');
+                            //Navigator.pushNamed(context, '/loginscreen');
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

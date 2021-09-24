@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_demo_project/widgets/listview-items.dart';
+import 'package:flutter_freshchat/flutter_freshchat.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -234,6 +235,26 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     newList = electrician;
+    initPlatformState();
+    FreshchatUser user = FreshchatUser.initial();
+    user.email = "thakaredipali14@gmail.com";
+    user.firstName = "test";
+    user.lastName = "user";
+    user.phoneCountryCode = "+91";
+    user.phone = "9518796894";
+
+    FlutterFreshchat.updateUserInfo(user: user);
+
+    var restoreid = user.id;
+    FlutterFreshchat.identifyUser(
+        externalID: 'thakaredipali14@gmail.com', restoreID: restoreid);
+  }
+
+  Future<void> initPlatformState() async {
+    await FlutterFreshchat.init(
+        appID: "ae2de9bf-9ec7-43c0-833b-e4784d57401a",
+        appKey: "221b54ae-8e4e-4ab7-b93a-8295cdc350c1",
+        domain: "msdk.in.freshchat.com");
   }
 
   @override

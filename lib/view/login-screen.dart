@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo_project/popup/error-popup.dart';
+import 'package:flutter_demo_project/services/set-preferencedata.dart';
 import 'package:flutter_demo_project/utils/toast-utils.dart';
 import 'package:flutter_demo_project/view-models/login-screen-viewmodel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -149,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ToastUtils.showCustomToast(
                               context, "Please enter email");
                         }
+                        PreferencesData.setUserLoginData(email);
 
                         // popup.showMaterialDialog(context);
                       }))),

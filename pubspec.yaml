@@ -37,6 +37,7 @@ dependencies:
   simple_animations: ^2.2.3
   connectivity: ^3.0.3
   shared_preferences: ^2.0.5
+  flutter_freshchat: ^1.4.0
   
 
 dev_dependencies:
