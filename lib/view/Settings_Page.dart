@@ -33,6 +33,14 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    await FlutterFreshchat.init(
+        appID: "5a380239-c3bf-4f4e-b8b1-56b4d6fc354d",
+        appKey: "8fefb485-3603-4b6f-9a04-8a5ad6a8fbb5",
+        domain: "msdk.in.freshchat.com");
   }
 
   @override
@@ -139,12 +147,34 @@ class _SettingsPageState extends State<SettingsPage> {
           Divider(),
           GestureDetector(
             onTap: () async {
+              FreshchatUser user = FreshchatUser.initial();
+              user.email = "thakaredipali14@gmail.com";
+              user.firstName = "Test";
+              user.lastName = "User";
+              user.phoneCountryCode = "+91";
+              user.phone = "9518796894";
+
+              FlutterFreshchat.updateUserInfo(user: user);
+
+              var restoreid = user.id;
+              FlutterFreshchat.identifyUser(
+                  externalID: 'thakaredipali14@gmail.com',
+                  restoreID: restoreid);
               String title = "Support Screen";
               await FlutterFreshchat.showConversations(
                   tags: const [], title: title);
             },
             child: bulidSettingOptions(
                 context, Icon(Icons.contact_mail_outlined), "Support"),
+          ),
+          Divider(),
+          GestureDetector(
+            onTap: () async {
+              // String title = "Support Screen";
+              await FlutterFreshchat.showFAQs();
+            },
+            child: bulidSettingOptions(
+                context, Icon(Icons.contact_mail_outlined), "Show FAQs"),
           ),
           Divider(),
           GestureDetector(

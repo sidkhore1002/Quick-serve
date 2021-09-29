@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_project/services/set-preferencedata.dart';
+import 'package:flutter_freshchat/flutter_freshchat.dart';
 
 class LogoutPopup extends StatefulWidget {
   LogoutPopup();
@@ -72,7 +73,9 @@ class _LogoutPopupState extends State<LogoutPopup> {
                           top: MediaQuery.of(context).size.width * 0.1),
                       child: Center(
                         child: GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            await FlutterFreshchat.resetUser();
+
                             var userdata = PreferencesData.clearPrefs();
                             print("lllllllll$userdata");
                             Navigator.of(context)
